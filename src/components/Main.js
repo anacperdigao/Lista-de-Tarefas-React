@@ -4,6 +4,9 @@ import '../components/Main.css'
 // Form
 import { FaPlus } from 'react-icons/fa'
 
+// Tarefas
+import { FaEdit, FaWindowClose } from 'react-icons/fa'
+
 
 //Componente com estado eu crio por classe e preciso do render
 class Main extends Component {
@@ -23,6 +26,11 @@ class Main extends Component {
 // Segunda forma mais curta
   state = {
     novaTarefa: '',
+    tarefas: [
+      'Fazer café',
+      'Beber água',
+      'Estudar',
+    ],
   };
 
   // Usei arrow function nesse método para prender o this dentro
@@ -35,7 +43,7 @@ class Main extends Component {
 
 
   render(){
-    const { novaTarefa } = this.state;
+    const { novaTarefa, tarefas } = this.state;
 
     return (
 
@@ -53,6 +61,18 @@ class Main extends Component {
             <FaPlus />
           </button>
         </form>
+
+        <ul className="tarefas">
+          {tarefas.map(tarefa => (
+          <li key={tarefa}>
+            {tarefa}
+            <div>
+              <FaEdit className="edit"/>
+              <FaWindowClose  className="delete"/>
+            </div>
+          </li>
+          ))}
+        </ul>
 
       </div>
 
