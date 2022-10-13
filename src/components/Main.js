@@ -27,6 +27,8 @@ class Main extends Component {
   state = {
     novaTarefa: '',
     tarefas: [],
+    index: -1, // Esse indice -1 quando for usado significa que eu nao estou editando nada, que eu estou criando.
+    // Isso pq se eu estiver criando, o indice quando clicar vai ser sempre maior que zero, e se eu estiver editando nao vai ser o indice comum que veio do .map.
   };
 
   // Usei arrow function nesse método para prender o this dentro
@@ -39,7 +41,7 @@ class Main extends Component {
 
   handleSubmit = (evento) => {
     evento.preventDefault();
-    const { tarefas } = this.state;
+    const { tarefas, index } = this.state;
     let {novaTarefa} = this.state;
     novaTarefa = novaTarefa.trim(); // trim elimina espaço no inicio e no fim
 
@@ -47,9 +49,21 @@ class Main extends Component {
 
     const novasTarefas = [...tarefas]; //Estou copiando o array para nao alterar o original
 
-    this.setState({
-      tarefas: [...novasTarefas, novaTarefa],
-    })
+
+    if (index === -1){ // Nessa parte eu estou criando uma nova tarefa
+      this.setState({
+        tarefas: [...novasTarefas, novaTarefa],
+        novaTarefa: "", // esse é o valor do input
+      })
+    } else { //aqui é quando estou editando uma tarefa
+      novasTarefas[index] = novaTarefa;
+
+      this.setState({
+        tarefas: [...novasTarefas],
+        index: -1,
+      })
+    }
+
   }
 
   handleDelete = (evento, index) => {
@@ -63,7 +77,12 @@ class Main extends Component {
   }
 
   handleEdit = (evento, index) => {
+    const { tarefas } = this.state;
 
+    this.setState({
+      index: index,
+      novaTarefa: tarefas[index],
+    })
   }
 
 
