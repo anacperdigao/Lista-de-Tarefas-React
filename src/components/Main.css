@@ -38,6 +38,10 @@
   justify-content: center;
 }
 
+.form button[type = "submit"]:hover{
+  opacity: 0.8;
+}
+
 .tarefas{
   margin-top: 30px;
 }
@@ -71,4 +75,10 @@
 .tarefas li:hover .edit,
 .tarefas li:hover .delete {
   color:black;
+}
+
+.tarefas li span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

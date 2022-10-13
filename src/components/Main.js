@@ -26,11 +26,7 @@ class Main extends Component {
 // Segunda forma mais curta
   state = {
     novaTarefa: '',
-    tarefas: [
-      'Fazer café',
-      'Beber água',
-      'Estudar',
-    ],
+    tarefas: [],
   };
 
   // Usei arrow function nesse método para prender o this dentro
@@ -39,6 +35,35 @@ class Main extends Component {
     this.setState({
       novaTarefa: evento.target.value,
     })
+  }
+
+  handleSubmit = (evento) => {
+    evento.preventDefault();
+    const { tarefas } = this.state;
+    let {novaTarefa} = this.state;
+    novaTarefa = novaTarefa.trim(); // trim elimina espaço no inicio e no fim
+
+    if(tarefas.indexOf(novaTarefa) !== -1) return; //Aqui só estou checkando se ja existe uma tarefa igual
+
+    const novasTarefas = [...tarefas]; //Estou copiando o array para nao alterar o original
+
+    this.setState({
+      tarefas: [...novasTarefas, novaTarefa],
+    })
+  }
+
+  handleDelete = (evento, index) => {
+    const { tarefas } = this.state;
+    const novasTarefas = [...tarefas];
+    novasTarefas.splice(index, 1)
+
+    this.setState({
+      tarefas: [...novasTarefas],
+    })
+  }
+
+  handleEdit = (evento, index) => {
+
   }
 
 
@@ -51,7 +76,7 @@ class Main extends Component {
 
         <h1>Lista de tarefas</h1>
 
-        <form className="form" action="#">
+        <form onSubmit={this.handleSubmit} className="form" action="#">
           <input
             onChange={this.handleChange}
             type="text"
@@ -63,13 +88,22 @@ class Main extends Component {
         </form>
 
         <ul className="tarefas">
-          {tarefas.map(tarefa => (
+          {tarefas.map((tarefa, index) => (
           <li key={tarefa}>
             {tarefa}
-            <div>
-              <FaEdit className="edit"/>
-              <FaWindowClose  className="delete"/>
-            </div>
+            <span>
+              <FaEdit
+              onClick={(evento) => this.handleEdit(evento, index)}
+              className="edit"
+              />
+
+              <FaWindowClose
+              // aqui seria dessa forma abaixo, só que como eu quero puxar o indice também, vou fazer uma função pegando ele do map.
+              // onClick={this.handleDelete}
+              onClick={(evento) => this.handleDelete(evento, index)}
+              className="delete"
+              />
+            </span>
           </li>
           ))}
         </ul>
