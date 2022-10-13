@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import '../components/Main.css'
 
+// Form
+import { FaPlus } from 'react-icons/fa'
+
 
 //Componente com estado eu crio por classe e preciso do render
 class Main extends Component {
@@ -40,9 +43,15 @@ class Main extends Component {
 
         <h1>Lista de tarefas</h1>
 
-        <form action="#">
-          <input onChange={this.handleChange} type="text" />
-          <button type="submit">Enviar</button>
+        <form className="form" action="#">
+          <input
+            onChange={this.handleChange}
+            type="text"
+            value={novaTarefa}
+            />
+          <button type="submit">
+            <FaPlus />
+          </button>
         </form>
 
       </div>
