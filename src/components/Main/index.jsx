@@ -1,11 +1,7 @@
 import React, { Component } from "react";
-import '../components/Main.css'
-
-// Form
-import { FaPlus } from 'react-icons/fa'
-
-// Tarefas
-import { FaEdit, FaWindowClose } from 'react-icons/fa'
+import Form from "../Form";
+import Tarefas from "../Tarefas";
+import * as S from './style.js'
 
 
 //Componente com estado eu crio por classe e preciso do render
@@ -30,6 +26,26 @@ class Main extends Component {
     index: -1, // Esse indice -1 quando for usado significa que eu nao estou editando nada, que eu estou criando.
     // Isso pq se eu estiver criando, o indice quando clicar vai ser sempre maior que zero, e se eu estiver editando nao vai ser o indice comum que veio do .map.
   };
+
+  // Aqui vou pegar as informações pra jogar em LocalStorage (prevProps = propriedades anteriores que nao vamos usar, prevState = estado anterior menos 1 alteração que fez)
+  componentDidUpdate(prevProps, prevState){
+    //console.log(prevState.novaTarefa)
+    const { tarefas } = this.state;
+
+    if (tarefas === prevState.tarefas) return
+
+    localStorage.setItem('tarefas', JSON.stringify(tarefas));
+  }
+
+  // Aqui vou guardar de fato as informações no LocalStorage
+  componentDidMount() {
+    const tarefas = JSON.parse(localStorage.getItem('tarefas'))
+
+    if (!tarefas) return // Senao existirem tarefas, nao faço nada e retorno
+
+    this.setState({ tarefas }); // se existe, vou setar o estado
+  }
+
 
   // Usei arrow function nesse método para prender o this dentro
   // O nome handle é sempre utilizado quando esta atrelado a um evento: handleChange, handleClick, handleSubmit...
@@ -61,6 +77,7 @@ class Main extends Component {
       this.setState({
         tarefas: [...novasTarefas],
         index: -1,
+        novaTarefa: "", // esse é o valor do input
       })
     }
 
@@ -91,43 +108,21 @@ class Main extends Component {
 
     return (
 
-      <div className="main">
+      <S.Main>
+        <S.Titulo>Lista de tarefas</S.Titulo>
 
-        <h1>Lista de tarefas</h1>
+        <Form
+          handleSubmit = {this.handleSubmit}
+          handleChange = {this.handleChange}
+          novaTarefa = {novaTarefa}
+        />
 
-        <form onSubmit={this.handleSubmit} className="form" action="#">
-          <input
-            onChange={this.handleChange}
-            type="text"
-            value={novaTarefa}
-            />
-          <button type="submit">
-            <FaPlus />
-          </button>
-        </form>
-
-        <ul className="tarefas">
-          {tarefas.map((tarefa, index) => (
-          <li key={tarefa}>
-            {tarefa}
-            <span>
-              <FaEdit
-              onClick={(evento) => this.handleEdit(evento, index)}
-              className="edit"
-              />
-
-              <FaWindowClose
-              // aqui seria dessa forma abaixo, só que como eu quero puxar o indice também, vou fazer uma função pegando ele do map.
-              // onClick={this.handleDelete}
-              onClick={(evento) => this.handleDelete(evento, index)}
-              className="delete"
-              />
-            </span>
-          </li>
-          ))}
-        </ul>
-
-      </div>
+        <Tarefas
+          handleEdit = {this.handleEdit}
+          handleDelete = {this.handleDelete}
+          tarefas = {tarefas}
+        />
+      </S.Main>
 
   )}
 }
