@@ -8,9 +8,9 @@ function Tarefas ({tarefas , handleDelete, handleEdit}) {
 
     <S.Tarefas>
       {tarefas.map((tarefa, index) => (
-      <S.TarefasLi key={tarefa}>
+      <S.ItensLista key={tarefa}>
         {tarefa}
-        <S.TarefasSpan>
+        <S.Icones>
           <S.IconEdit
           onClick={(evento) => handleEdit(evento, index)}
           />
@@ -20,8 +20,8 @@ function Tarefas ({tarefas , handleDelete, handleEdit}) {
           // onClick={this.handleDelete}
           onClick={(evento) => handleDelete(evento, index)}
           />
-        </S.TarefasSpan>
-      </S.TarefasLi>
+        </S.Icones>
+      </S.ItensLista>
       ))}
     </S.Tarefas>
 

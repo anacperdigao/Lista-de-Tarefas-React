@@ -5,7 +5,7 @@ export const Tarefas = styled.ul`
   margin-top: 30px;
 `
 
-export const TarefasLi = styled.li`
+export const ItensLista = styled.li`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -13,11 +13,11 @@ export const TarefasLi = styled.li`
   transition: all 400ms;
 
   :hover{
-    background: #51c5de;
+    background: #d4f7ff;
   }
 `
 
-export const TarefasSpan = styled.span`
+export const Icones = styled.span`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,11 +25,11 @@ export const TarefasSpan = styled.span`
 
 export const IconEdit = styled(FaEdit)`
   margin-right: 15px;
-  color: #51c5de;
+  color: #3fa4ba;
   cursor: pointer;
-  transition: all 400ms;
+  transition: all 200ms;
   :hover{
-    color:black;
+    transform: scale(1.3)
   }
 `
 export const IconDelete = styled(FaWindowClose)`
@@ -38,7 +38,7 @@ export const IconDelete = styled(FaWindowClose)`
   cursor: pointer;
   transition: all 400ms;
   :hover{
-    color:black;
+    transform: scale(1.3)
   }
 `
 
