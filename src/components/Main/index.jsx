@@ -29,20 +29,15 @@ class Main extends Component {
 
   // Aqui vou pegar as informações pra jogar em LocalStorage (prevProps = propriedades anteriores que nao vamos usar, prevState = estado anterior menos 1 alteração que fez)
   componentDidUpdate(prevProps, prevState){
-    //console.log(prevState.novaTarefa)
     const { tarefas } = this.state;
-
     if (tarefas === prevState.tarefas) return
-
     localStorage.setItem('tarefas', JSON.stringify(tarefas));
   }
 
   // Aqui vou guardar de fato as informações no LocalStorage
   componentDidMount() {
     const tarefas = JSON.parse(localStorage.getItem('tarefas'))
-
     if (!tarefas) return // Senao existirem tarefas, nao faço nada e retorno
-
     this.setState({ tarefas }); // se existe, vou setar o estado
   }
 
@@ -55,6 +50,7 @@ class Main extends Component {
     })
   }
 
+
   handleSubmit = (evento) => {
     evento.preventDefault();
     const { tarefas, index } = this.state;
@@ -64,7 +60,6 @@ class Main extends Component {
     if(tarefas.indexOf(novaTarefa) !== -1) return; //Aqui só estou checkando se ja existe uma tarefa igual
 
     const novasTarefas = [...tarefas]; //Estou copiando o array para nao alterar o original
-
 
     if (index === -1){ // Nessa parte eu estou criando uma nova tarefa
       this.setState({
@@ -83,6 +78,7 @@ class Main extends Component {
 
   }
 
+
   handleDelete = (evento, index) => {
     const { tarefas } = this.state;
     const novasTarefas = [...tarefas];
@@ -92,6 +88,7 @@ class Main extends Component {
       tarefas: [...novasTarefas],
     })
   }
+
 
   handleEdit = (evento, index) => {
     const { tarefas } = this.state;
@@ -104,6 +101,7 @@ class Main extends Component {
 
 
   render(){
+
     const { novaTarefa, tarefas } = this.state;
 
     return (
