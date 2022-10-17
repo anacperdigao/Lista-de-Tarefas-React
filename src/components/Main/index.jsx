@@ -42,8 +42,8 @@ class Main extends Component {
   }
 
 
-  // Usei arrow function nesse método para prender o this dentro
-  // O nome handle é sempre utilizado quando esta atrelado a um evento: handleChange, handleClick, handleSubmit...
+
+  // Aqui eu estou armazenando o valor do input do usuario e estou mudando o estado da variável novaTarefa
   handleChange = (evento) => {
     this.setState({
       novaTarefa: evento.target.value,
@@ -64,7 +64,7 @@ class Main extends Component {
     if (index === -1){ // Nessa parte eu estou criando uma nova tarefa
       this.setState({
         tarefas: [...novasTarefas, novaTarefa],
-        novaTarefa: "", // esse é o valor do input
+        novaTarefa: "", // Aqui estou limpando o input
       })
     } else { //aqui é quando estou editando uma tarefa
       novasTarefas[index] = novaTarefa;
@@ -72,7 +72,7 @@ class Main extends Component {
       this.setState({
         tarefas: [...novasTarefas],
         index: -1,
-        novaTarefa: "", // esse é o valor do input
+        novaTarefa: "", // Aqui estou limpando o input
       })
     }
 
